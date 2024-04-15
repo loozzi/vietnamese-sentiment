@@ -21,6 +21,46 @@
 </div>
 
 # Mô tả
+
 Sử dụng mô hình học máy: phoBERT, BiLSTM, Attention để thực hiện phân loại cảm xúc văn bản tiếng Việt (tích cực/tiêu cực)
+
 # Cài đặt & sử dụng
-_Đang cập nhật..._
+
+### Cài đặt (Ubuntu 20.04 - Python 3.x)
+
+```
+git clone https://github.com/loozzi/vietnamese-sentiment.git
+
+cd vietnamese-sentiment
+
+pip install -r requirements.txt
+```
+
+### Train model
+
+```
+python3 train.py
+```
+
+#### Input:
+
+```
+dropout = <0 -> 1> (0.2 ~ 0.4)
+max_len = <0 -> n> (128 | 256)
+epoch = <0 -> n> (3~10)
+```
+
+### Predict
+
+Theo bộ dữ liệu đi kèm thì: `0-Positive` và `1-Negative`
+
+```
+python3 predict.py
+```
+
+#### Input
+
+```
+Model path: <model-name>-<dropout>-<max_len>-<epoch>.pth
+Sentences path: <filename>.txt (1 sentence per line)
+```
