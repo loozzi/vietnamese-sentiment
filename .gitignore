@@ -1,3 +1,4 @@
 vncorenlp
 *.pth
 test*.*
+__pycache__
