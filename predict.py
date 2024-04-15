@@ -47,31 +47,37 @@ def predict(tokenizer, sequences, max_len, model, device):
 
 
 if __name__ == "__main__":
+    model_path = input("Enter model path: ")
+    file_path = input("Enter file path: ")
     hidden_size = 768
     num_classes = 2
     learning_rate = 1e-5
     batch_size = 32
-    num_epochs = 5
-    dropout = 0.3
-    MAX_LEN = 125
+    info = model_path.split("-")
+    num_epochs = int(info[-1].split(".")[0])
+    dropout = float(info[-3])
+    MAX_LEN = int(info[-2])
 
     device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
     model = load_model(
-        "./models/Bert_samodel-[0.3-125-5].pth",
+        model_path,
         hidden_size,
         num_classes,
         dropout,
         device,
     )
     tokenizer = AutoTokenizer.from_pretrained("vinai/phobert-base")
-
-    predicted, prob_0, prob_1 = predict(
-        tokenizer, ["Tôi yêu bạn"], MAX_LEN, model, device
-    )
+    data = open(file_path, "r").read().split("\n")
+    predicted, prob_0, prob_1 = predict(tokenizer, data, MAX_LEN, model, device)
 
     # Positive: 0
     # Negative: 1
+    f = open("output.txt", "w")
     for i, p in enumerate(predicted):
         print(
             f"Predicted: {p.item()}, prob_0: {prob_0[i].item()}, prob_1: {prob_1[i].item()}"
         )
+        f.write(data[i] + "\n")
+        f.write(f"{p.item()}\n")
+
+    f.close()

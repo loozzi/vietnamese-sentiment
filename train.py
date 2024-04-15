@@ -193,14 +193,14 @@ def download_vncorenlp():
 if __name__ == "__main__":
     # define constants
     base_dir = "."
-    train_path = "/data/train.crash"
     hidden_size = 768
     num_classes = 2
-    learning_rate = 1e-5
     batch_size = 32
-    num_epochs = 3
-    dropout = 0.15
-    MAX_LEN = 256
+    train_path = "/data/train.crash"
+    dropout = float(input("dropout: "))
+    MAX_LEN = int(input("max_len: "))
+    num_epochs = int(input("epoch: "))
+    learning_rate = 1e-5
 
     download_vncorenlp()
 

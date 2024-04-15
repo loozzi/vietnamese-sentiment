@@ -1,0 +1,7 @@
+torch
+transformers
+vncorenlp
+numpy
+pandas
+scikit-learn
+tensorflow
